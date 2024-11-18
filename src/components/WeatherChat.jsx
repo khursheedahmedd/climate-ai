@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import axios from 'axios';
 import 'leaflet/dist/leaflet.css';
+import Groq from "groq-sdk";
 
 // Configure Leaflet marker icons
 delete L.Icon.Default.prototype._getIconUrl;
@@ -10,6 +11,11 @@ L.Icon.Default.mergeOptions({
     iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
     iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+});
+
+const groq = new Groq({
+    apiKey: "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",
+    dangerouslyAllowBrowser: true,
 });
 
 const AirQualityChat = () => {
@@ -21,6 +27,12 @@ const AirQualityChat = () => {
     const [userInput, setUserInput] = useState('');
     const [airResponse, setAirResponse] = useState('');
     const [language, setLanguage] = useState('en');
+    const [messages, setMessages] = useState([
+        {
+            role: "system",
+            content: "",
+        },
+    ]);
 
     const apiKey = 'bcbc5efb-e4e4-4456-b58b-979a7d268862';
     const chatApiKey = '';
@@ -127,29 +139,23 @@ const AirQualityChat = () => {
 
         if (!userInput) return;
 
-        const userMessage = `The air quality in ${airResponse.data.data.city} is ${airResponse.data.data.current.pollution.aqius} AQI. The temperature is ${airResponse.data.data.current.weather.tp}°C. and here is my question ${userInput}. Give me short answer and don't use headings and also give two answer one in English and also conert that English response into given city language and separate both language response with some space`;
+        const userPrompt = `The air quality in ${airResponse.data.data.city} is ${airResponse.data.data.current.pollution.aqius} AQI. The temperature is ${airResponse.data.data.current.weather.tp}°C. and here is my question ${userInput}. Give me short answer and don't use headings.`;
+        const userMessage = { role: "user", content: userPrompt };
+        const updatedMessages = [...messages, userMessage];
         setChat((prevChat) => [...prevChat, { sender: 'user', text: userInput }]);
 
         try {
-            const response = await fetch("https://api.aimlapi.com/chat/completions", {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${chatApiKey}`, // Use your chat API key
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    model: "gpt-4o",
-                    messages: [
-                        { role: "user", content: userMessage },
-                    ],
-                    max_tokens: 512,
-                    stream: false,
-                    language: language
-                }),
+            const chatCompletion = await groq.chat.completions.create({
+                model: "llama-3.2-90b-vision-preview",
+                messages: updatedMessages,
+                temperature: 0.7,
+                max_tokens: 150,
+                top_p: 1,
+                stream: false,
             });
 
-            const data = await response.json();
-            const modelResponse = data.choices[0]?.message?.content || "Sorry, I couldn't get a response.";
+            // const data = await response.json();
+            const modelResponse = chatCompletion.choices[0].message.content;
             setChat((prevChat) => [...prevChat, { sender: 'model', text: modelResponse }]);
         } catch (error) {
             console.error('Error communicating with the chat API:', error);
