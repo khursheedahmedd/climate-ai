@@ -7,7 +7,7 @@ const Alerts = () => {
             title: "Air Quality Alert",
             description: "Unhealthy levels of air pollution have been detected in the area. Limit outdoor activities, especially for sensitive groups.",
             level: "High",
-            issued: "October 11, 2024",
+            issued: "November 18, 2024",
         },
         // {
         //     id: 2,

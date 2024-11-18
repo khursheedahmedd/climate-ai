@@ -9,7 +9,7 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="bg-blue-600 text-white py-4 shadow-md px-6">
+        <nav className="bg-blue-600 text-white py-4 shadow-md px-6 z-20">
             <div className="container mx-auto flex justify-between items-center">
                 <div className="text-xl font-bold">
                     <Link to="/">Climate AI</Link>
