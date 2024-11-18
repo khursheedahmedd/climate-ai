@@ -130,7 +130,6 @@ const AirQualityChat = () => {
         const userMessage = `The air quality in ${airResponse.data.data.city} is ${airResponse.data.data.current.pollution.aqius} AQI. The temperature is ${airResponse.data.data.current.weather.tp}°C. and here is my question ${userInput}. Give me short answer and don't use headings and also give two answer one in English and also conert that English response into given city language and separate both language response with some space`;
         setChat((prevChat) => [...prevChat, { sender: 'user', text: userInput }]);
 
-        // Send message to the chat API
         try {
             const response = await fetch("https://api.aimlapi.com/chat/completions", {
                 method: "POST",
