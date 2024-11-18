@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
-
     const navigate = useNavigate();
 
     const navigateToDashboard = () => {
@@ -16,52 +15,77 @@ const HomePage = () => {
     const navigateToChat = () => {
         navigate('/chat');
     };
+
     const navigateToHistoricalWeather = () => {
         navigate('/historical-weather');
-    }
+    };
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <div className="bg-white shadow-md rounded-lg p-6 mb-8" >
-                <h1 className="text-5xl font-bold text-center text-green-600">Climate AI </h1>
-                <p className="mt-4 text-xl text-gray-700 text-center">
-                    Get real-time insights into environmental data such as air quality, pollution levels, and more.
+            <div className="bg-white shadow-lg rounded-lg p-6 mb-12 text-center">
+                <h1 className="text-6xl font-extrabold text-green-600">Climate AI</h1>
+                <p className="mt-4 text-lg text-gray-700">
+                    Empowering you with real-time environmental insights to make better choices for a healthier planet.
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-blue-50 p-6 rounded-lg shadow-md cursor-pointer" onClick={navigateToChat}>
-                    <h2 className="text-3xl font-semibold text-blue-600">Chat with Real-Time Insights</h2>
-                    <p className="mt-2 text-gray-600">
-                        Our AI-powered dashboard provides real-time updates on air quality and weather conditions, helping you stay informed and make better choices for yourself and your community.
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Chat with Real-Time Insights Card */}
+                <div
+                    className="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-6 rounded-xl shadow-lg hover:scale-105 transform transition-transform cursor-pointer"
+                    onClick={navigateToChat}
+                >
+                    <h2 className="text-3xl font-bold flex items-center gap-3">
+                        <span className="material-icons text-4xl">chat</span>
+                        Chat with Real-Time Insights
+                    </h2>
+                    <p className="mt-3 text-lg">
+                        Interact with our AI to get real-time updates on air quality and weather conditions.
                     </p>
                 </div>
-                <div className="bg-yellow-50 p-6 rounded-lg shadow-md cursor-pointer" onClick={navigateToDashboard}>
-                    <h2 className="text-3xl font-semibold text-yellow-600">See Pollution Levels in Your Area</h2>
-                    <p className="mt-2 text-gray-600">
-                        Our dashboard provides real-time updates on air quality and weather conditions, helping you stay informed and make better choices for yourself and your community.
+
+                {/* See Pollution Levels in Your Area Card */}
+                <div
+                    className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white p-6 rounded-xl shadow-lg hover:scale-105 transform transition-transform cursor-pointer"
+                    onClick={navigateToDashboard}
+                >
+                    <h2 className="text-3xl font-bold flex items-center gap-3">
+                        <span className="material-icons text-4xl">place</span>
+                        See Pollution Levels in Your Area
+                    </h2>
+                    <p className="mt-3 text-lg">
+                        Access real-time air quality data to stay informed and protect your health.
                     </p>
                 </div>
-                <div className="bg-green-50 p-6 rounded-lg shadow-md cursor-pointer" onClick={navigateToAlerts}>
-                    <h2 className="text-3xl font-semibold text-green-600">Get Alert for Climate Change</h2>
-                    <p className="mt-2 text-gray-600">
-                        Our dashboard provides real-time updates on air quality and weather conditions, helping you stay informed and make better choices for yourself and your community.
+
+                {/* Get Alert for Climate Change Card */}
+                <div
+                    className="bg-gradient-to-r from-green-400 to-green-600 text-white p-6 rounded-xl shadow-lg hover:scale-105 transform transition-transform cursor-pointer"
+                    onClick={navigateToAlerts}
+                >
+                    <h2 className="text-3xl font-bold flex items-center gap-3">
+                        <span className="material-icons text-4xl">notifications</span>
+                        Get Alerts for Climate Change
+                    </h2>
+                    <p className="mt-3 text-lg">
+                        Stay updated with timely alerts about climate changes and extreme weather conditions.
                     </p>
                 </div>
-                <div className="bg-purple-50 p-6 rounded-lg shadow-md cursor-pointer" onClick={navigateToHistoricalWeather}>
-                    <h2 className="text-3xl font-semibold text-purple-600">Get Information about Historical Weather </h2>
-                    <p className="mt-2 text-gray-600">
-                        Get real-time insights into environmental data such as air quality, pollution levels, and more.
+
+                {/* Get Information about Historical Weather Card */}
+                <div
+                    className="bg-gradient-to-r from-purple-400 to-purple-600 text-white p-6 rounded-xl shadow-lg hover:scale-105 transform transition-transform cursor-pointer"
+                    onClick={navigateToHistoricalWeather}
+                >
+                    <h2 className="text-3xl font-bold flex items-center gap-3">
+                        <span className="material-icons text-4xl">history</span>
+                        Explore Historical Weather Data
+                    </h2>
+                    <p className="mt-3 text-lg">
+                        Dive into historical weather trends and analyze past climate data.
                     </p>
                 </div>
             </div>
-
-            {/* <div className="mt-8 text-center">
-                <h2 className="text-2xl font-bold text-gray-800">Join Us in Making a Difference</h2>
-                <p className="mt-2 text-gray-600">
-                    Together, we can work towards a healthier planet. Monitor, educate, and take action for a sustainable future!
-                </p>
-            </div> */}
         </div>
     );
 };
